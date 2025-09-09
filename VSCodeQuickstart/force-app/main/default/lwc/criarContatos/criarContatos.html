@@ -1,0 +1,17 @@
+<template>
+    <lightning-card title="Criar Contato" icon-name="custom:custom14">
+    <div class="slds-m-around_medium">
+    <lightning-record-edit-form object-api-name="Contact" onsuccess={handleContato}>
+        <lightning-input-field field-name="Name"> </lightning-input-field>
+        <lightning-input-field field-name="Phone"> </lightning-input-field>
+        <lightning-input-field field-name="AccountId"> </lightning-input-field>
+        <lightning-button
+            class="slds-m-top_small"
+            type="submit"
+            label="Criar Contato"
+        >
+        </lightning-button>
+      </lightning-record-edit-form>
+    </div>
+  </lightning-card>
+</template>
