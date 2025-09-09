@@ -45,16 +45,12 @@ export default class HelloWorld extends LightningElement {
                 } 
         }
         changeHandler(event) {
-                this.nomeCompleto = event.target.value;
+                this[event.target.name] = event.target.value;
         }
 
-        changeHandlerIdade(event) {
-                this.idade = event.target.value;
-        }
-
-        changeHandlerEstudante(event) {
-                this.estudante = event.target.checked;
-                if(!this.estudante){
+        changeHandlerChecked(event) {
+                this[event.target.name] = event.target.checked;
+                if(event.target.name == 'estudante' && !this.estudante ){
                         this.serie = '';
                 }
         }

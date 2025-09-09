@@ -30,18 +30,18 @@
          <lightning-layout>
             <lightning-layout-item size="12" small-device-size="6" medium-device-size="4" flexibility="auto" padding="around-small">
                 <div>
-                   <lightning-input type="text" label="Nome" value={nomeCompleto} onchange={changeHandler}></lightning-input>
+                   <lightning-input type="text" label="Nome" value={nomeCompleto} onchange={changeHandler} name="nomeCompleto"></lightning-input>
                 </div>
             </lightning-layout-item>
              <lightning-layout-item size="12" small-device-size="4" medium-device-size="2" flexibility="auto" padding="around-small">
                 <div> 
-                   <lightning-input type="number" label="Idade" value={idade} onchange={changeHandlerIdade}></lightning-input>
+                   <lightning-input type="number" label="Idade" value={idade} onchange={changeHandler} name="idade"></lightning-input>
                 </div>
             </lightning-layout-item>
              <lightning-layout-item size="12" small-device-size="6" medium-device-size="4" large-device-size="3" flexibility="auto" padding="around-small">
               <br/>  
               <div>
-                  <lightning-input type="checkbox" label="É estudante?" checked={estudante} onchange={changeHandlerEstudante}></lightning-input>
+                  <lightning-input type="checkbox" label="É estudante?" checked={estudante} onchange={changeHandlerChecked} name="estudante"></lightning-input>
                 </div>
             </lightning-layout-item>
          </lightning-layout>
