@@ -6,7 +6,7 @@ export default class HelloWorld extends LightningElement {
         serie = '';
         sexoSelecionado;
         sexo = false;
-
+        
         clickedButtonMostrarNome = '';
 
         mapMarkers = [];
