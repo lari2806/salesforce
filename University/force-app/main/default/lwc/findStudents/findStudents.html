@@ -1,18 +1,41 @@
 <template>
-    <lightning-card>
-        <template if:true={students.data}>
-            <lightning-datatable
-                key-field="Id"
-                data={students.data}
-                columns={columns}
-            >
-           </lightning-datatable>
-           <br/>
-           <br/>
-           <lightning-button-group>
-            <lightning-button variant="brand" label="Ativo" name="Ativo" title="Ativo" onclick={handleClickAtivo} class="slds-m-left_x-small"></lightning-button>
-            <lightning-button variant="success" label="Inativo" name="Inativo" title="Inativo" onclick={handleClickInativo} class="slds-m-left_x-small"></lightning-button> 
-           </lightning-button-group>
+    <lightning-card title="Dados da turma:">
+        <template if:true={students}>
+            <br/>
+            <lightning-tabset>
+
+                <lightning-tab label="Todos da turma"  onactive={handleClickAll}>
+                <lightning-datatable
+                    key-field="Id"
+                    data={students}
+                    columns={columns}
+                >
+                </lightning-datatable>
+                </lightning-tab>
+
+                <lightning-tab label="Alunos Ativos" onactive={handleClickAtivo}>
+                <lightning-datatable
+                    key-field="Id"
+                    data={students}
+                    columns={columns}
+                >
+                </lightning-datatable>
+                </lightning-tab>
+
+                <lightning-tab label="Alunos Inativos" onactive={handleClickInativo} >
+                <lightning-datatable
+                    key-field="Id"
+                    data={students}
+                    columns={columns}
+                >
+                </lightning-datatable>
+                </lightning-tab>
+
+            </lightning-tabset>
+
+             <lightning-button variant="brand" label="Registrar novo aluno" title="Registration Student" onclick={handleClickNewStudent} class="slds-m-left_x-small"></lightning-button>
+            <br/>
+            <br/>
         </template>
     </lightning-card>
 </template>

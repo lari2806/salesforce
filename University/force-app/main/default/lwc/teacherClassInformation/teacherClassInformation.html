@@ -1,0 +1,12 @@
+<template>
+    <lightning-card title="Turmas professor:">
+        <template if:true={students}>
+            <lightning-datatable
+                key-field="Id"
+                data={students}
+                columns={columns}
+            >
+           </lightning-datatable>
+        </template>
+    </lightning-card>
+</template>

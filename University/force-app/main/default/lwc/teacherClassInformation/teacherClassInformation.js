@@ -1,10 +1,9 @@
-import { LightningElement, wire } from 'lwc';
+import { LightningElement, wire } from 'lwc';;
 import STUDENT_OBJECT from '@salesforce/schema/Student__c';
 import NAME_FIELD from '@salesforce/schema/Student__c.Name';
 import REGISTRATION_FIELD from '@salesforce/schema/Student__c.Registration__c';
 import STATUS_FIELD from '@salesforce/schema/Student__c.Status_Registration__c';
 import getStudents from '@salesforce/apex/StudentController.getStudents';
-import StudentCreator from 'c/studentCreator';
 
 
 const COLUMNS = [
@@ -13,36 +12,12 @@ const COLUMNS = [
     { label: 'Status student', fieldName: STATUS_FIELD.fieldApiName, type: 'text' }
 ];
 export default class AccountCreator extends LightningElement {
-    filter='';
     objectApiName = STUDENT_OBJECT;
     fields = [NAME_FIELD, REGISTRATION_FIELD,STATUS_FIELD];
 
     columns = COLUMNS;
-    students = [];
-    @wire(getStudents, { filter:'$filter' })
-    wireStudent({ data, error }) {
-    if (data) {
-      this.students = data;
-      this.error = undefined;
-    } else if (error) {
-      this.error = error;
-      this.students = undefined;
-    }
-  }
+    
+   
 
-  handleClickAtivo(event) {
-    this.filter = 'Ativo';
-  }
-
-  handleClickInativo(event) {
-    this.filter = 'Inativo';
-  }
-  handleClickAll(event) {
-    this.filter = '';
-  }
-
-  handleClickNewStudent(event){
-    StudentCreator.show();
-  }
 
 }
