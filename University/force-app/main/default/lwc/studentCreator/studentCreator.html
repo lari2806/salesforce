@@ -1,9 +1,16 @@
 <template>
     <lightning-card>
-        <lightning-record-form
-            object-api-name={objectApiName}
-            fields={fields}
-            onsuccess={handleSuccess}>
-        </lightning-record-form>
+        <lightning-record-edit-form object-api-name={objectApiName} onsuccess={handleSuccess} density="compact">
+            <lightning-input-field field-name={studentName} label="Student Name:"
+                placeholder="Informe o nome do estudante" required></lightning-input-field>
+            <lightning-input-field field-name={statusStudent} label="Status student:" required></lightning-input-field>
+            <lightning-input-field field-name={registrationStudent} label="Registration"
+                required></lightning-input-field>
+            <lightning-input-field field-name={courseStudent} label="Course" required></lightning-input-field>
+
+
+            <lightning-button style="display: flex; justify-content: center; align-items: center;" label="Save"
+                variant="success" type="submit" class="slds-m-top_medium"></lightning-button>
+        </lightning-record-edit-form>
     </lightning-card>
 </template>

@@ -1,0 +1,22 @@
+<template>
+    <lightning-card title="Account Search" icon-name="standard:search">
+        <div class="slds-p-around_medium">
+            <!-- Search Input -->
+            <lightning-input type="text" placeholder="Search Accounts..." onchange={handleSearch}></lightning-input>
+        </div>
+<!-- Search Results -->
+        <template if:true={accounts}>
+            <ul class="slds-list_dotted">
+                <template for:each={accounts} for:item="account">
+                    <li key={account.Id}>
+                        {account.Name}
+                    </li>
+                </template>
+            </ul>
+        </template>
+        <!-- No Results Found -->
+        <template if:true={noResults}>
+            <p>No accounts found.</p>
+        </template>
+    </lightning-card>
+</template>
