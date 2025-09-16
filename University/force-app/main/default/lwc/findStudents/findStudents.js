@@ -53,4 +53,13 @@ export default class findStudents extends NavigationMixin(LightningElement) {
       }
     });
   }
+  handleClickSearchTeacher(event){
+    this[NavigationMixin.Navigate]({
+      type: 'standard__navItemPage',
+      attributes:
+      {
+        apiName: 'teacherClassInformation'
+      }
+    });
+  }
 }

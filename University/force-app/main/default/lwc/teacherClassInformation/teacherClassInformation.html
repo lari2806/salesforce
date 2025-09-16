@@ -1,8 +1,26 @@
 <template>
-    <lightning-card title="Turmas professor:">
-        <template if:true={students}>
-            <lightning-datatable key-field="Id" data={students} columns={columns}>
-            </lightning-datatable>
+    <lightning-card title="Teacher Search" icon-name="standard:search" >
+        <div class="slds-p-around_medium">
+            <!-- Search Input -->
+            <lightning-input type="search" placeholder="Search teachers..." onchange={handleSearch}></lightning-input>
+        </div>
+
+        <template if:true={teachers}>
+            <ul class="slds-list_dotted">
+                <template for:each={teachers} for:item="teacher">
+
+                    <li key={teacher.Id} onclick={handleSelectTeacher}>
+                    
+                       <lightning-button label={teacher.Name} data-id={teacher.Id} data-name={teacher.Name} class="slds-m-right_small">
+                        {teacher.Name}
+                        </lightning-button>
+                    </li>
+                </template>
+            </ul>
+        </template>
+
+        <template if:true={noResults}>
+            <p>No teachers found.</p>
         </template>
     </lightning-card>
 </template>
