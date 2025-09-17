@@ -2,7 +2,7 @@
     <lightning-card title="Dados da turma:">
         <template if:true={students}>
             <br />
-            <lightning-tabset>
+            <lightning-tabset> 
 
                 <lightning-tab label="Todos da turma" onactive={handleClickAll}>
                     <lightning-datatable key-field="Id" data={students} columns={columns}>
@@ -23,9 +23,6 @@
 
             <lightning-button variant="brand" label="Registrar novo aluno" title="Registration Student"
                 onclick={handleClickNewStudent} class="slds-m-left_x-small"></lightning-button>
-
-            <lightning-button variant="brand" label="Procurar Professor" title="Search Teacher"
-                onclick={handleClickSearchTeacher} class="slds-m-left_x-small"></lightning-button>"
             <br />
             <br />
         </template>

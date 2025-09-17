@@ -1,14 +1,14 @@
 public with sharing class TeacherController {
     @AuraEnabled(cacheable=true)
-    public static List<Teacher__c> searchTeachers(String searchKey) {
-        // Prevent SOQL injection by escaping special characters
-        String searchTerm = '%' + String.escapeSingleQuotes(searchKey) + '%';
-// Perform the SOQL query
+    public static List<Student__c> getCoursesByTeacher(Id teacherId) {
+
         return [
-            SELECT Id, Name
-            FROM Teacher__c
-            WHERE Name LIKE :searchTerm
-            LIMIT 10
+            SELECT Id, Name, Course__r.Name, Course__r.Teacher__r.Name
+            FROM Student__c
+            WHERE Course__r.Teacher__c = :teacherId
+            LIMIT 200
         ];
     }
+
 }
+

@@ -1,26 +1,12 @@
 <template>
-    <lightning-card title="Teacher Search" icon-name="standard:search" >
-        <div class="slds-p-around_medium">
-            <!-- Search Input -->
-            <lightning-input type="search" placeholder="Search teachers..." onchange={handleSearch}></lightning-input>
-        </div>
+    <lightning-card title="Teacher Search" icon-name="standard:search">
 
-        <template if:true={teachers}>
-            <ul class="slds-list_dotted">
-                <template for:each={teachers} for:item="teacher">
+        <lightning-record-picker object-api-name="Teacher__c" label="Professores" onchange={handleSelectTeacher}>
 
-                    <li key={teacher.Id} onclick={handleSelectTeacher}>
-                    
-                       <lightning-button label={teacher.Name} data-id={teacher.Id} data-name={teacher.Name} class="slds-m-right_small">
-                        {teacher.Name}
-                        </lightning-button>
-                    </li>
-                </template>
-            </ul>
-        </template>
-
-        <template if:true={noResults}>
-            <p>No teachers found.</p>
-        </template>
+        </lightning-record-picker>
     </lightning-card>
+    <template if:true={selectedTeacherCourses}>
+        <lightning-datatable key-field="Id" data={teachers} columns={columns}>
+        </lightning-datatable>
+    </template>
 </template>

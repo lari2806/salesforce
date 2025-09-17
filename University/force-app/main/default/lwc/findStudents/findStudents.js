@@ -17,7 +17,6 @@ const COLUMNS = [
 export default class findStudents extends NavigationMixin(LightningElement) {
   filter = '';
   objectApiName = STUDENT_OBJECT;
-  fields = [NAME_FIELD, REGISTRATION_FIELD, STATUS_FIELD, COURSE_FIELD];
 
   columns = COLUMNS;
   students = [];

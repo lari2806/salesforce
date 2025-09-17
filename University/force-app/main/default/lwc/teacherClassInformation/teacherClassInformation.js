@@ -1,48 +1,49 @@
-import { LightningElement, track } from 'lwc';
-import searchTeachers from '@salesforce/apex/TeacherController.searchTeachers';
-import TEACHER_NAME_FIELD from '@salesforce/schema/Teacher__c.Name';
+import { LightningElement } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
-import TEACHER_OBJECT from '@salesforce/schema/Teacher__c';
 import NAME_FIELD from '@salesforce/schema/Student__c.Name';
 import COURSE_FIELD from '@salesforce/schema/Student__c.Course__c';
 import COURSE_TEACHER_FIELD from '@salesforce/schema/Course__c.Teacher__c';
+import getCoursesByTeacher from '@salesforce/apex/teacherController.getCoursesByTeacher';
 
 
 const COLUMNS = [
-    { label: 'Name', fieldName: TEACHER_NAME_FIELD.fieldApiName, type: 'text' },
-    { label: 'Account Name', fieldName: NAME_FIELD.fieldApiName, type: 'text' },
+    { label: 'Student Name ', fieldName: NAME_FIELD.fieldApiName, type: 'text' },
     { label: 'Course', fieldName: COURSE_FIELD.fieldApiName, type: 'text' },
     { label: 'Course Teacher', fieldName: COURSE_TEACHER_FIELD.fieldApiName, type: 'text' },
 ];
 
 export default class TeacherSearch extends NavigationMixin(LightningElement) {
-    teacher = TEACHER_NAME_FIELD;
 
-    objectApiName = TEACHER_OBJECT;
-    fields = [NAME_FIELD, COURSE_FIELD, COURSE_TEACHER_FIELD];
     columns = COLUMNS;
-    @track teachers = [];
-    @track TeacherSearch = '';
-    @track noResults = false;
-    handleSearch(event) {
-        const searchTerm = event.target.value;
-        if (searchTerm) {
-            searchTeachers({ searchKey: searchTerm })
-                .then(result => {
-                    this.teachers = result;
-                    this.noResults = result.length === 0;
-                })
-                .catch(error => {
-                    console.error('Error searching teachers ', error);
-                    this.teachers = undefined;
-                    this.noResults = true;
-                });
-        } else {
-            this.teachers = undefined;
-            this.noResults = false;
-        }
+    teachers = [];
+    selectedTeacherCourses = false;
+
+    teachersData({ data, error }) {
+    if (data) {
+      this.teachers = data;
+      this.error = undefined;
+    } else if (error) {
+      this.error = error;
+      this.teachers = undefined;
     }
+  }
     handleSelectTeacher(event) {
-        }
+    const selectedTeacherId = event.detail.recordId;
+    this.selectedTeacherCourses = true;
+
+    getCoursesByTeacher({ teacherId: selectedTeacherId })
+    .then(result => {
+        this.teachers = result.map(student => ({
+            Id: student.Id,
+            Name: student.Name,
+            Course__c: student.Course__c,
+            CourseTeacher: student.Course__r?.Teacher__c || ''
+        }));
+    })
+    .catch(error => {
+        this.error = error;
+    });
+
+}
 }
 
