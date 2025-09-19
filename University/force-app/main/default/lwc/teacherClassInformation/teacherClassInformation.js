@@ -1,15 +1,12 @@
 import { LightningElement } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
-import NAME_FIELD from '@salesforce/schema/Student__c.Name';
-import COURSE_FIELD from '@salesforce/schema/Student__c.Course__c';
-import COURSE_TEACHER_FIELD from '@salesforce/schema/Course__c.Teacher__c';
 import getCoursesByTeacher from '@salesforce/apex/teacherController.getCoursesByTeacher';
 
 
 const COLUMNS = [
-    { label: 'Student Name ', fieldName: NAME_FIELD.fieldApiName, type: 'text' },
-    { label: 'Course', fieldName: COURSE_FIELD.fieldApiName, type: 'text' },
-    { label: 'Course Teacher', fieldName: COURSE_TEACHER_FIELD.fieldApiName, type: 'text' },
+    { label: 'Student Name', fieldName: 'StudentName', type: 'text' },
+    { label: 'Course', fieldName: 'CourseName', type: 'text' },
+    { label: 'Course Teacher', fieldName: 'CourseTeacher', type: 'text' },
 ];
 
 export default class TeacherSearch extends NavigationMixin(LightningElement) {
@@ -33,12 +30,15 @@ export default class TeacherSearch extends NavigationMixin(LightningElement) {
 
     getCoursesByTeacher({ teacherId: selectedTeacherId })
     .then(result => {
-        this.teachers = result.map(student => ({
-            Id: student.Id,
-            Name: student.Name,
-            Course__c: student.Course__c,
-            CourseTeacher: student.Course__r?.Teacher__c || ''
-        }));
+        this.teachers = result.flatMap(course => 
+    course.Students__r?.map(student => ({
+        Id: student.Id,
+        StudentName: student.Name,
+        CourseName: course.Name,
+        CourseTeacher: course.Teacher__r?.Name || ''
+    })) || []
+);
+
     })
     .catch(error => {
         this.error = error;
@@ -46,4 +46,5 @@ export default class TeacherSearch extends NavigationMixin(LightningElement) {
 
 }
 }
+
 
