@@ -8,9 +8,11 @@ import COURSE from '@salesforce/schema/Student__c.Course__c';
 
 import CITY_FIELD from '@salesforce/schema/Student__c.City__c';
 import NEIGHBORHOOD_FIELD from '@salesforce/schema/Student__c.Neighborhood__c';
-import Cep_FIELD from '@salesforce/schema/Student__c.Cep__c';
+import CEP_FIELD from '@salesforce/schema/Student__c.Cep__c';
 import STREET_FIELD from '@salesforce/schema/Student__c.Street__c';
 import STATE_FIELD from '@salesforce/schema/Student__c.State__c';
+
+import fieldCepStudents from '@salesforce/apex/StudentController.fieldCepStudents';
 
 export default class StudentCreator extends LightningElement {
     studentName = NAME_FIELD;
@@ -18,11 +20,12 @@ export default class StudentCreator extends LightningElement {
     statusStudent = STATUS_FIELD;
     courseStudent = COURSE;
 
-    cepStudent = Cep_FIELD;
-    ruaStudent = STREET_FIELD;
-    bairroStudent = NEIGHBORHOOD_FIELD; 
     cidadeStudent = CITY_FIELD;
+    bairroStudent = NEIGHBORHOOD_FIELD; 
+    cepStudent = CEP_FIELD;
+    ruaStudent = STREET_FIELD;
     estadoStudent = STATE_FIELD;
+
 
     objectApiName = STUDENT_OBJECT;
     fields = [NAME_FIELD, REGISTRATION_FIELD, STATUS_FIELD];
@@ -34,4 +37,27 @@ export default class StudentCreator extends LightningElement {
         });
         this.dispatchEvent(toastEvent);
     }
+
+     
+    handleCepChange(event){
+        this.cepStudent = event.detail.value;
+        if(this.cepStudent.length == 8){
+    fieldCepStudents({ cep: this.cepStudent })
+            .then(result => {
+
+                this.cepStudent = result.cep;
+                this.ruaStudent = result.logradouro;
+                this.bairroStudent = result.bairro;
+                this.cidadeStudent = result.localidade;
+                this.estadoStudent = result.uf;
+
+                
+            })
+            .catch(error => {
+                this.error = error;
+            });
+        }
+        console.log('Cep do estudante:', result);
+    }
+
 }

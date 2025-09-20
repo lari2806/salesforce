@@ -24,10 +24,10 @@ public with sharing class StudentController {
         CepDTO CepDTO = CepService.getEnderecoCep(cep);
         Student__c student = new Student__c();
         student.Cep__c = CepDTO.cep;
-        student.Logradouro__c = CepDTO.logradouro;
-        student.Bairro__c = CepDTO.bairro;
-        student.Cidade__c = CepDTO.localidade;
-        student.Uf__c = CepDTO.uf;
+        student.Street__c = CepDTO.logradouro;
+        student.Neighborhood__c = CepDTO.bairro;
+        student.City__c = CepDTO.localidade;
+        student.State__c = CepDTO.uf;
         return student;
 
     }
