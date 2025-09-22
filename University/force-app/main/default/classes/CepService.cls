@@ -18,4 +18,3 @@ public with sharing class CepService {
 
     }
 }
-

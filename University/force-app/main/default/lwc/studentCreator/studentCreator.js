@@ -40,17 +40,15 @@ export default class StudentCreator extends LightningElement {
 
      
     handleCepChange(event){
-        this.cepStudent = event.detail.value;
-        if(this.cepStudent.length == 8){
-    fieldCepStudents({ cep: this.cepStudent })
+        this.cepValue = event.detail.value;
+        if(this.cepValue.length === 9){
+        fieldCepStudents({ cepStudent : this.cepValue })
             .then(result => {
-
-                this.cepStudent = result.cep;
-                this.ruaStudent = result.logradouro;
-                this.bairroStudent = result.bairro;
-                this.cidadeStudent = result.localidade;
-                this.estadoStudent = result.uf;
-
+                console.log('Cep do estudante: '+ result);
+                this.template.querySelector('[data-id="Street__c"]').value = result.Street__c;
+                this.template.querySelector('[data-id="Neighborhood__c"]').value = result.Neighborhood__c;
+                this.template.querySelector('[data-id="City__c"]').value = result.City__c;
+                this.template.querySelector('[data-id="State__c"]').value = result.State__c;
                 
             })
             .catch(error => {

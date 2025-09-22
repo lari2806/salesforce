@@ -1,6 +1,6 @@
 import { LightningElement } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
-import getCoursesByTeacher from '@salesforce/apex/teacherController.getCoursesByTeacher';
+import getCoursesByTeacher from '@salesforce/apex/TeacherController.getCoursesByTeacher';
 
 
 const COLUMNS = [
@@ -46,5 +46,3 @@ export default class TeacherSearch extends NavigationMixin(LightningElement) {
 
 }
 }
-
-

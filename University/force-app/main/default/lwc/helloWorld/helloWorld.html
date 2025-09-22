@@ -1,0 +1,85 @@
+<template>
+  <lightning-card title="Cadastro" icon-name="custom:custom14">
+    <div class="slds-m-around_medium">
+
+      <template if:true={sexoSelecionado}>
+        <template if:true={sexo}>
+          <lightning-avatar initials="MA" fallback-icon-name="standard:person_account"></lightning-avatar>
+        </template>
+        <template if:false={sexo}>
+          <lightning-avatar initials="FE" fallback-icon-name="standard:person_account"></lightning-avatar>
+        </template>
+        <lightning-helptext content="Your avatar appeared in accordance with the selected gender."></lightning-helptext>
+      </template>
+
+        <lightning-layout>
+            <lightning-layout-item flexibility="auto" padding="around-small">
+                <div class="custom-box slds-box slds-p-around_medium slds-text-align_center"> <p>Nome: {nomeCompleto}</p></div>
+            </lightning-layout-item>
+            <lightning-layout-item flexibility="auto" padding="around-small">
+                <div class="custom-box slds-box slds-p-around_medium slds-text-align_center"><p>Idade: {idade}</p></div>
+            </lightning-layout-item>
+            <lightning-layout-item flexibility="auto, no-grow" padding="around-small">
+                <div class="custom-box slds-box slds-p-around_medium slds-text-align_center"><p>Estudante: {estudante}</p></div>
+            </lightning-layout-item>
+            <lightning-layout-item flexibility="auto" padding="around-small">
+                <div class="custom-box slds-box slds-p-around_medium slds-text-align_center"><p>Série: {serie}</p></div>
+            </lightning-layout-item>
+        </lightning-layout>
+
+         <lightning-layout>
+            <lightning-layout-item size="12" small-device-size="6" medium-device-size="4" flexibility="auto" padding="around-small">
+                <div>
+                   <lightning-input type="text" label="Nome" value={nomeCompleto} onchange={changeHandler} name="nomeCompleto"></lightning-input>
+                </div>
+            </lightning-layout-item>
+             <lightning-layout-item size="12" small-device-size="4" medium-device-size="2" flexibility="auto" padding="around-small">
+                <div> 
+                   <lightning-input type="number" label="Idade" value={idade} onchange={changeHandler} name="idade"></lightning-input>
+                </div>
+            </lightning-layout-item>
+             <lightning-layout-item size="12" small-device-size="6" medium-device-size="4" large-device-size="3" flexibility="auto" padding="around-small">
+              <br/>  
+              <div>
+                  <lightning-input type="checkbox" label="É estudante?" checked={estudante} onchange={changeHandlerChecked} name="estudante"></lightning-input>
+                </div>
+            </lightning-layout-item>
+         </lightning-layout>
+      
+      <br/>
+      <template if:true={estudante}>
+          <lightning-combobox
+            name="série"
+            label="Qual a sua série?"
+            value={serie}
+            placeholder="Selecione sua série"
+            options={optionsSeries}
+            onchange={handleChangeSerie} ></lightning-combobox>
+      </template>
+      <br/>
+
+      <lightning-radio-group name="Sexo"
+          label="Qual seu sexo?"
+          options={optionsSexos}
+          value={sexoSelecionado}
+          onchange={changeHandlerSexo}
+          type="radio">
+      </lightning-radio-group>
+
+      <br/>
+
+      <lightning-input type="text" label="Digite seu país:" value={pais} onchange={changeHandlerPais} placeholder="DIgite seu país..."></lightning-input>
+      <br/>
+      <lightning-button variant="brand" label="Buscar map" title="Buscar map" onclick={handleClickbuscarMap} class="slds-m-left_x-small"></lightning-button>
+      <br/>
+      <lightning-map map-markers={mapMarkers} zoom-level={zoomLevel}> </lightning-map>
+      <br/>
+       
+      <lightning-button-group>
+        <lightning-button variant="brand" label="Limpar campos" title="Clear fields" onclick={handleClickLimpaCampos} class="slds-m-left_x-small"></lightning-button>
+        <lightning-button variant="success" label="Salvar" title="Salvar" onclick={handleClickSalvar} class="slds-m-left_x-small"></lightning-button> 
+      </lightning-button-group>
+      
+    </div>
+  </lightning-card>
+</template>
