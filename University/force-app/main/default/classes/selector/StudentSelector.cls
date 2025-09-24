@@ -20,4 +20,5 @@ public with sharing class StudentSelector extends fflib_SObjectSelector  impleme
     public List<Student__c> selectById(Set<Id> idSet){
         return (List<Student__c>) selectSObjectsById(idSet);
     }
+
 }
