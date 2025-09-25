@@ -1,7 +1,6 @@
 public interface ICourseSelector {
 
-    boolean lookupForIdenticalStatus();
+    List<Course__c> getCourseById(Set<Id> courseIdSet);
     Schema.SObjectType getSObjectType();
     List<Schema.SObjectField> getSObjectFieldList();
-    List<Student__c> selectById(Set<Id> idset);
 }

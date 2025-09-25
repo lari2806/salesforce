@@ -8,34 +8,43 @@ public with sharing class StudentService implements IStudentService {
         }
     }
 
-     public void validateStudentInCourses(List<Student__c> newStudents, Map<Id, Student__c> oldMap)
+     public void validateStudentInCourses(List<Student__c> students)
     {
-            Set<Id> oldCourseId = new Set<Id>();
-            Set<Id> newCourseId = new Set<Id>();
+        
+            Set<Id> coursesId = new Set<Id>();
+            Map<Id, Integer> studentCountByCourse = new Map<Id, Integer>();
 
-            List<Student__c> students = new List<Student__c>();
-
-            for (Student__c student : newStudents) {
-                Student__c oldStudent = oldMap.get(student.Id);
+            for (Student__c student : students) {
                 
-                if (oldStudent != null && oldStudent.Course__c != student.Course__c) {
-                    oldCourseId.add(oldStudent.Course__c);
-                }
-                if (student.Course__c != null) {
-                    newCourseId.add(student.Course__c);
+                if (student.Course__c != null && student.Status_Registration__c != 'inativo' )  {
+                    coursesId.add(student.Course__c);
                 }
                
             }
 
-            Set<Id> courseId = new Set<Id>();
-            courseId.addAll(oldCourseId);
-            courseId.addAll(newCourseId);
+            CourseSelector courseSelector = (CourseSelector) di_Injector.Org.getInstance('CourseSelector');
+            List<Course__c> courses = courseSelector.getCourseById(coursesId);
+
+
+            List<Course__c> coursesToUpdate = new List<Course__c>();
+
+            for (Course__c course : courses) {
+            Integer studentsValue= 0;
+                for (Student__c student : students) {
+                    if (student.Course__c == course.Id && student.Status_Registration__c != 'inativo') {
+                        studentsValue++;
+                    }
+                    }
+                    course.Number_Of_Students__c = studentsValue;
+                    coursesToUpdate.add(course);
+                }
+
+        if (!coursesToUpdate.isEmpty()) {
+        update coursesToUpdate;
+        }
     } 
+
+
 }
-
-
-            
-           
-
 
 

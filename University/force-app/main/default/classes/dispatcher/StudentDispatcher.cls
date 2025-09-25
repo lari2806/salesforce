@@ -35,3 +35,4 @@ public with sharing class StudentDispatcher implements TriggerDispatcher {
         instanceTriggerHandler.execute();
     }
 }
+

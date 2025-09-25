@@ -1,9 +1,9 @@
 public with sharing class StudentSelector extends fflib_SObjectSelector  implements IStudentSelector {
-    public boolean lookupForIdenticalStatus(){
+    public List<Student__c> lookupForIdenticalStatus(){
         List<Student__c> students = [SELECT Id, Name, Status_Registration__c
         FROM Student__c 
         WHERE Status_Registration__c ='inativo'];
-        return students.isEmpty();
+        return students;
     }
 
     public Schema.SObjectType getSObjectType(){
