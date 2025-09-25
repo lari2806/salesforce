@@ -19,6 +19,7 @@ public with sharing class StudentService implements IStudentService {
                 if (student.Course__c != null && student.Status_Registration__c != 'inativo' )  {
                     coursesId.add(student.Course__c);
                 }
+              
                
             }
 
@@ -37,11 +38,13 @@ public with sharing class StudentService implements IStudentService {
                     }
                     course.Number_Of_Students__c = studentsValue;
                     coursesToUpdate.add(course);
-                }
 
-        if (!coursesToUpdate.isEmpty()) {
-        update coursesToUpdate;
-        }
+            }
+
+            if (!coursesToUpdate.isEmpty()) {
+            update coursesToUpdate;
+            }
+
     } 
 
 
