@@ -8,7 +8,7 @@ public with sharing class StudentService implements IStudentService {
         }
     }
 
-     public void validateStudentInCourses(List<Student__c> students)
+    public void validateStudentInCourses(List<Student__c> students)
     {
         
             Set<Id> coursesId = new Set<Id>();
@@ -66,8 +66,19 @@ public with sharing class StudentService implements IStudentService {
                     }
                     update courses;
                 }
-} 
-    
 
+    public void messageTeacher(){
+        StudentSelector studentSelector = (StudentSelector) di_Injector.Org.getInstance('StudentSelector');
+        students = studentSelector.lookupForIdenticalStatus();
+
+        for (Student__c student : students) {
+            Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
+            
+        }
+    }    
+            
+} 
+    //setToAddresses();
+    //example: mail.setToAddresses(toAddress);
 
 
