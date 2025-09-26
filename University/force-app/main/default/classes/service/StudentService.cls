@@ -12,42 +12,62 @@ public with sharing class StudentService implements IStudentService {
     {
         
             Set<Id> coursesId = new Set<Id>();
-            Map<Id, Integer> studentCountByCourse = new Map<Id, Integer>();
+
+            StudentSelector studentSelector = (StudentSelector) di_Injector.Org.getInstance('StudentSelector');
+
+
+            students = studentSelector.lookupForIdenticalStatus();
 
             for (Student__c student : students) {
-                
-                if (student.Course__c != null && student.Status_Registration__c != 'inativo' )  {
+                if (student.Course__c != null)  {
                     coursesId.add(student.Course__c);
-                }
-              
-               
+                }   
             }
-
             CourseSelector courseSelector = (CourseSelector) di_Injector.Org.getInstance('CourseSelector');
             List<Course__c> courses = courseSelector.getCourseById(coursesId);
 
-
-            List<Course__c> coursesToUpdate = new List<Course__c>();
-
-            for (Course__c course : courses) {
-            Integer studentsValue= 0;
-                for (Student__c student : students) {
-                    if (student.Course__c == course.Id && student.Status_Registration__c != 'inativo') {
-                        studentsValue++;
+            for (Student__c student : students) {
+                if (student.Course__c != null) {
+                    for (Course__c course : courses) {
+                        if (student.Course__c == course.Id){
+                            if (course.Number_Of_Students__c == null) {
+                                course.Number_Of_Students__c = 0;
+                            }
+                            if (course.Number_Of_Students__c > 0) {
+                                course.Number_Of_Students__c += 1;
+                            }
+                        }
                     }
-                    }
-                    course.Number_Of_Students__c = studentsValue;
-                    coursesToUpdate.add(course);
-
-            }
-
-            if (!coursesToUpdate.isEmpty()) {
-            update coursesToUpdate;
-            }
+                }
+            } 
 
     } 
+    public void addStudentInCourse(List<Student__c> students){
 
+        Set<Id> coursesId = new Set<Id>();
 
-}
+            for (Student__c student : students) {
+                if (student.Course__c != null)  {
+                    coursesId.add(student.Course__c);
+                }   
+            }
+            CourseSelector courseSelector = (CourseSelector) di_Injector.Org.getInstance('CourseSelector');
+            List<Course__c> courses = courseSelector.getCourseById(coursesId);
+
+           
+                    for (Course__c course : courses) {
+                    
+                            if (course.Number_Of_Students__c == null) {
+                                course.Number_Of_Students__c = 0;
+                            }
+                            if (course.Number_Of_Students__c > 0) {
+                                course.Number_Of_Students__c += 1;
+        
+                        }
+                    }
+                }
+            } 
+    
+
 
 

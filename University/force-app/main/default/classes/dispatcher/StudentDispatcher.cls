@@ -17,10 +17,10 @@ public with sharing class StudentDispatcher implements TriggerDispatcher {
         }
         if (Trigger.isAfter) {
             if (Trigger.isInsert) {
-                
+                instanceTriggerHandler = (TriggerHandler) di_Injector.org.getInstance('StudentAfterInsertTriggerHandler');
             }
             if (Trigger.isUpdate) {
-                
+                instanceTriggerHandler = (TriggerHandler) di_Injector.org.getInstance('StudentAfterUpdateTriggerHandler');
             }
             if (Trigger.isDelete) {
                 

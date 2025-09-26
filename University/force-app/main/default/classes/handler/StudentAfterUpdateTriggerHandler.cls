@@ -1,6 +1,6 @@
-public with sharing class StudentBeforeInsertTriggerHandler implements TriggerHandler {
+public with sharing class StudentAfterUpdateTriggerHandler implements TriggerHandler{
     public void execute(){
-        this.instanceStudentService.validateStatus(Trigger.new);
+        this.instanceStudentService.validateStudentInCourses((List<Student__c>) Trigger.new);
     }
 
     private StudentService instanceStudentService{
@@ -12,4 +12,4 @@ public with sharing class StudentBeforeInsertTriggerHandler implements TriggerHa
         }
         set;
     }
-} 
+}

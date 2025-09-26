@@ -1,6 +1,6 @@
 public with sharing class StudentSelector extends fflib_SObjectSelector  implements IStudentSelector {
     public List<Student__c> lookupForIdenticalStatus(){
-        List<Student__c> students = [SELECT Id, Name, Status_Registration__c
+        List<Student__c> students = [SELECT Id, Name, Status_Registration__c, Course__c
         FROM Student__c 
         WHERE Status_Registration__c ='inativo'];
         return students;
