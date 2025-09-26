@@ -34,12 +34,13 @@ public with sharing class StudentService implements IStudentService {
                                 course.Number_Of_Students__c = 0;
                             }
                             if (course.Number_Of_Students__c > 0) {
-                                course.Number_Of_Students__c += 1;
+                                course.Number_Of_Students__c -= 1;
                             }
                         }
                     }
                 }
             } 
+            update courses;
 
     } 
     public void addStudentInCourse(List<Student__c> students){
@@ -60,13 +61,12 @@ public with sharing class StudentService implements IStudentService {
                             if (course.Number_Of_Students__c == null) {
                                 course.Number_Of_Students__c = 0;
                             }
-                            if (course.Number_Of_Students__c > 0) {
+                            
                                 course.Number_Of_Students__c += 1;
-        
-                        }
                     }
+                    update courses;
                 }
-            } 
+} 
     
 
 

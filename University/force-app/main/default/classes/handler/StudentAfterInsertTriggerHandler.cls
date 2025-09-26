@@ -1,4 +1,4 @@
-public with sharing class StudentAfterInsertTriggerHandler {
+public with sharing class StudentAfterInsertTriggerHandler implements TriggerHandler {
     public void execute(){
         this.instanceStudentService.addStudentInCourse(Trigger.new);
     }
