@@ -1,7 +1,7 @@
 public with sharing class CourseSelector implements ICourseSelector {
      public List<Course__c> getCourseById(Set<Id> courseIdSet){
 
-        List<Course__c> courses = [SELECT Id, Name, Number_Of_Students__c
+        List<Course__c> courses = [SELECT Id, Name, Number_Of_Students__c, Teacher__c
         FROM Course__c 
         WHERE Id IN :courseIdSet ];
         
@@ -19,5 +19,6 @@ public with sharing class CourseSelector implements ICourseSelector {
     }
     
 }
+
 
 
