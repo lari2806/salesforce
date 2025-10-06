@@ -28,13 +28,11 @@ public with sharing class TestService implements ITestService{
                         email.setToAddresses(new String[] { student.Email__c });
                         email.setSubject('Há uma nova task' + test.Name);
                         email.setPlainTextBody(
-                        'Olá ' + student.Name + ',\n\n' +
-                        'Uma nova avaliação foi cadastrada para o curso. Por favor, acesse sua conta para realizar a prova.\n\n' +
-                        'Nome da avaliação: ' + test.Name + '\n' +
-                        'Curso: ' + test.Course__c + '\n\n' +
-                        'Boa sorte!'
+                        'Olá ' + student.Name + 'há uma nova task para você completar!'
                         );
                         emailsToSend.add(email);
+                        
+
 
                         }
                     }
@@ -48,7 +46,6 @@ public with sharing class TestService implements ITestService{
     }
 
 }
-
 
 
 
