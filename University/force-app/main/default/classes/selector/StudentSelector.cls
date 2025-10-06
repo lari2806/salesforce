@@ -6,6 +6,15 @@ public with sharing class StudentSelector extends fflib_SObjectSelector  impleme
         return students;
     }
 
+     public List<Student__c> getTestsById(Set<Id> courseIds) {
+         List<Student__c> students = [
+            SELECT Id, Name, Email__c, Course__c
+            FROM Student__c
+            WHERE Course__c IN :courseIds
+        ];
+        return students;
+    }
+
     public Schema.SObjectType getSObjectType(){
         return Student__c.SObjectType;
     }

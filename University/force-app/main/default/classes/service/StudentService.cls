@@ -111,20 +111,9 @@ public with sharing class StudentService implements IStudentService {
         }
     }
 
-
-   public void fillInTeacherInCourse(List<Course__c> courses) {
-    String teacher = System.Label.Teacher;
-    System.debug('olá' + mensagem);
-
- 
-}
-
-
 }
  
     
 
     //setToAddresses();
     //example: mail.setToAddresses(toAddress);
-
-
